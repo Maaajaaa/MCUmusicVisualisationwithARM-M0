@@ -23,10 +23,10 @@
 #include "nn.h"
 #include "mfcc.h"
 
-class KWS{
+class MFCC_MCU{
 
 public:
-  ~KWS();
+  ~MFCC_MCU();
   void extract_features();
   void classify();
   void average_predictions();
@@ -45,8 +45,8 @@ public:
   int audio_buffer_size;
 
 protected:
-  KWS();
-  void init_kws();
+  MFCC_MCU();
+  void init_mfcc();
   MFCC *mfcc;
   NN *nn;
   int mfcc_buffer_size;

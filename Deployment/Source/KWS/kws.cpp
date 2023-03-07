@@ -23,11 +23,11 @@
 
 #include "kws.h"
 
-KWS::KWS()
+MFCC_MCU::MFCC_MCU()
 {
 }
 
-KWS::~KWS()
+MFCC_MCU::~MFCC_MCU()
 {
   delete mfcc;
   delete mfcc_buffer;
@@ -36,7 +36,7 @@ KWS::~KWS()
   delete averaged_output;
 }
 
-void KWS::init_kws()
+void MFCC_MCU::init_mfcc()
 {
   num_mfcc_features = nn->get_num_mfcc_features();
   num_frames = nn->get_num_frames();
@@ -53,7 +53,7 @@ void KWS::init_kws()
   audio_buffer_size = audio_block_size + frame_len - frame_shift;
 }
 
-void KWS::extract_features() 
+void MFCC_MCU::extract_features() 
 {
   if(num_frames>recording_win) {
     //move old features left 
@@ -67,14 +67,14 @@ void KWS::extract_features()
   }
 }
 
-void KWS::classify()
+void MFCC_MCU::classify()
 {
   nn->run_nn(mfcc_buffer, output);
   // Softmax
   arm_softmax_q7(output,num_out_classes,output);
 }
 
-int KWS::get_top_class(q7_t* prediction)
+int MFCC_MCU::get_top_class(q7_t* prediction)
 {
   int max_ind=0;
   int max_val=-128;
@@ -87,7 +87,7 @@ int KWS::get_top_class(q7_t* prediction)
   return max_ind;
 }
 
-void KWS::average_predictions()
+void MFCC_MCU::average_predictions()
 {
   // shift the old predictions left
   arm_copy_q7((q7_t *)(predictions+num_out_classes), (q7_t *)predictions, (sliding_window_len-1)*num_out_classes);

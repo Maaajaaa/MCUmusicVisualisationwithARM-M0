@@ -22,7 +22,7 @@
 #include "kws.h"
 #include "ds_cnn.h"
 
-class KWS_DS_CNN : public KWS {
+class KWS_DS_CNN : public MFCC_MCU {
 public:
   KWS_DS_CNN(int recording_win, int sliding_window_len);
   KWS_DS_CNN(int16_t* audio_buffer);
