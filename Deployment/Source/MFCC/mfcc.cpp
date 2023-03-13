@@ -25,8 +25,7 @@
 #include "mfcc.h"
 #include "float.h"
 
-MFCC::MFCC(int num_mfcc_features, int frame_len, int mfcc_dec_bits) 
-:num_mfcc_features(num_mfcc_features), 
+MFCC::MFCC(int num_mfcc_features, int frame_len, int mfcc_dec_bits):num_mfcc_features(num_mfcc_features), 
  frame_len(frame_len), 
  mfcc_dec_bits(mfcc_dec_bits)
 {

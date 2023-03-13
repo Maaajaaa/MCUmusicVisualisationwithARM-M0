@@ -16,17 +16,34 @@
  * limitations under the License.
  */
 
-#ifndef __KWS_DS_CNN_H__
-#define __KWS_DS_CNN_H__
+#ifndef __MFCC_MCU_H__
+#define __MFCC_MCU_H__
 
-#include "kws.h"
-#include "ds_cnn.h"
+#include "mfcc.h"
 
-class KWS_DS_CNN : public MFCC {
+class MFCC_MCU{
+
 public:
-  KWS_DS_CNN(int recording_win, int sliding_window_len);
-  KWS_DS_CNN(int16_t* audio_buffer);
-  ~KWS_DS_CNN();
+  ~MFCC_MCU();
+  void extract_features();
+  void classify();
+  q7_t *mfcc_buffer;
+  q7_t *audio_buffer;
+  int num_frames;
+  int num_mfcc_features;
+  int frame_len;
+  int frame_shift;
+  int audio_block_size;
+  int audio_buffer_size;
+
+protected:
+  MFCC_MCU();
+  void init_mfcc();
+  MFCC *mfcc;
+  int mfcc_buffer_size;
+  int recording_win;
+  int sliding_window_len;
+  
 };
 
 #endif

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-#ifndef __KWS_MFCC_H__
+//#ifndef __KWS_MFCC_H__
 #define __KWS_MFCC_H__
 
 #include "arm_math.h"
@@ -61,4 +61,4 @@ class MFCC{
     void mfcc_compute(const int16_t* data, q7_t* mfcc_out);
 };
 
-#endif
+//#endif
