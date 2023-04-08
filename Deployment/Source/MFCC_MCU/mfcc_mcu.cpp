@@ -25,6 +25,7 @@
 //from dnn.h
 #define SAMP_FREQ 16000
 #define MFCC_DEC_BITS 2
+//40ms is 25Hz/FPS
 #define FRAME_SHIFT_MS 40
 #define FRAME_SHIFT ((int16_t)(SAMP_FREQ * 0.001 * FRAME_SHIFT_MS))
 #define NUM_FRAMES 25

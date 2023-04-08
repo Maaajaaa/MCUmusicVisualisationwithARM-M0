@@ -20,7 +20,7 @@
  * Description: Example code for running keyword spotting on Cortex-M boards
  */
 
-#include "kws_ds_cnn.h"
+#include "mfcc_basicimpl.h"
 #include "wav_data.h"
 
 int16_t audio_buffer[16000]=WAVE_DATA;
@@ -30,17 +30,27 @@ Serial pc(USBTX, USBRX);
 
 int main()
 {
-  char output_class[12][8] = {"Silence", "Unknown","yes","no","up","down","left","right","on","off","stop","go"};
-  KWS_DS_CNN kws(audio_buffer);
+  MFCC_BASICIMPL mfccImpl(audio_buffer);
 
   T.start();
   int start=T.read_us();
-  kws.extract_features(); //extract mfcc features
-  kws.classify();	  //classify using dnn
+  mfccImpl.extract_features(); //extract mfcc features
   int end=T.read_us();
   T.stop();
-  int max_ind = kws.get_top_class(kws.output);
   pc.printf("Total time : %d us\r\n",end-start);
+  //print mfcc outputs
+
+  for(int frame=0; frame < 25; frame++){
+    pc.printf("frame %d: ", frame);
+    for(int feature=0; feature < 10; feature++){
+      // To print to 10 decimal places after the . with a rounded value, scale the fraction by 1010 and then divide by 232.
+      //https://stackoverflow.com/a/57455345
+      // Multiplied by 10^7 then divived by 2^8
+      uint8_t feature_float = (mfccImpl.mfcc_buffer[frame*25+feature] * 10000000 + 128 )/ 256;
+      pc.printf(" %1.7f ", feature_flot);
+    }
+  }
+  
   printf("Detected %s (%d%%)\r\n",output_class[max_ind],((int)kws.output[max_ind]*100/128));
 
   return 0;

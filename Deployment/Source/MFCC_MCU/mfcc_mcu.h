@@ -26,7 +26,6 @@ class MFCC_MCU{
 public:
   ~MFCC_MCU();
   void extract_features();
-  void classify();
   q7_t *mfcc_buffer;
   q7_t *audio_buffer;
   int num_frames;
